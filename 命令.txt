@@ -1,0 +1,117 @@
+常用命令:
+1、sudo raspi-config  初始化配置
+2、startx 启动图形化界面
+3、sudo rpi-update 升级系统
+4、sudo reboot 重启
+5、sudo shutdown -h now 立即关机
+6、sudo apt-get update   更新软件源
+7、sudo apt-get upgrade  更新已经安装的软件
+8、sudo apt-get install XX  安装XX软件
+9、su root 切换到root用户
+10、passwd user  设置user用户的密码
+
+
+资源管理命令：
+1、top :查看系统的运行情况
+2、free -m(-k, -g):查看内存分配情况
+3、sudo df -h ：查看磁盘使用情况
+4、sudo du -sh :查看当前目录下的磁盘使用信息
+
+进程管理
+1、ps ：查看系统正在运行的进程
+2、ps -ef | less :查看系统所有的进程，包括后台进程。
+3、kill -<signal> <PID> 对进程做出一定的操作
+  注：* signal 1 (SIGHUP): hang-up的缩写，该信号通知应用程序重新启动
+      * signal 3 （SIGQUIT）：该信号通知应用程序清理自身资源并退出
+      * signal 6 （SIGABRT）：该信号通知应用程序终止并立即退出
+      * signal 9  （SIGKILL）：该信号立即终止应用程序
+      * PID ：应用程序的进程号，可以通过ps 查看
+
+文件管理
+1、pwd :显示当前的绝对路径
+2、cd ：切换路径
+3、cd .. :切换到上级目录
+4、find ：查找文件
+ 注：参数解析 
+     -L ：表示启动符号连接跟踪，默认情况下是不会启动的。
+     -maxdepth<number>: 该选项指定find命令最大的目录查看深度，如果为1的话表示当前目录文件和一级子目                  录文件。
+     -newer<file>:表示只查找指定文件的修改时间更新的文件
+     -empty：表示只查找空文件
+     -atime<number> ：表示只查找距离上次访问指定天数之后的文件
+     -name<filename>:表示搜索完全匹配指定文件名的文件
+     -exec<command>:指示find命令为每个匹配的文件路径执行指定的命令。
+ 
+例：find /mnt/volumer -empty -name foobar -exec rm
+作用：该命令会搜索/mnt/volumer 中的所有名称匹配foobar的空文件，并执行rm命令将其删去
+5、file <filename> :通过读取filename文件的内容判断文件的类型。
+6、grep <pattern> <file>: grep 所有的参数都支持通配符，所以你可以搜索整个目录中所有文件内容
+
+编辑器vi的使用：（vi和vim的联系）
+编辑器：编辑器就是一款软件，他的主要作用是用来编辑。如编写文件，编写代码等。
+windows中的常用编辑器： notepad（笔记本） notepad++,UltraEditor, SlickEditor
+linux中常用的编辑器：  自带的最古老的vi。比较好用的是vim，gedit。
+注意：vim是vi的升级版，推荐使用vim。
+           但使用vim（vi）打开一个文件时，如果文件不存在他会帮你新建一个文件。
+
+vi的两种工作模式：
+命令模式：  当vi打开时默认为命令模式，要转入输入模式，需要按a或i键。在命令模式下所有的输入都被vi当作命令来对待。（所以不要乱按）
+输入模式： 输入模式用来向文件输入内容。当输入完成要保存文件时需要按Esc键切换到命令模式。
+注意 :  看屏幕左下角，当命令模式时无提示信息或者提示文件名等信息，当输入模式时，提示：--INSERT--
+
+使用方式：  vi  pathname     打开或创建一个文件
+
+在命令模式下保存文件：
+            ：wq      保存并且退出
+            ：w         只保存不退出
+             ：q         不保存退出  （只是进来看了一下没改时退出用）
+             ：q!         不保存强制退出
+             ：wq!      保存并强制退出
+
+vi  的高级使用(在命令模式下使用)
+*   /xxx      查找 xxx 
+*  ：行数   快速切换到指定行数
+*  ：set nu  设置显示行号
+*   ：set nonu  设置不显示行号
+注意：设置永久显示行号，需要修改vi的配置文件。打开vi的配置文件~/.vimrc 在其中输入set nu 即可。
+*    dd        删除一整行
+*    numdd    删除num行
+*     numyy    复制num行
+*     p              粘贴
+注意:    复制时要把光标放在多行的第一行，粘贴时实际粘贴到当前光标所在行的下一行。
+ 
+*    vim水平分屏的使用 :vim -on file1 file2 ...其中:
+
+     o(是小写字母o,不是数字零)n(表示你要分屏的文件个数)
+
+     filen(文件名多个文件用空格分开)
+
+  
+
+   我用两个文件做测试想到上面那个文件用:ctrl + w + k
+
+   想到下面的文件用:ctrl + w + j
+
+   当然你懒的话可以用:ctrl + w + w
+
+ *  在水平分屏好的文件中在打开别的文件:sp filename
+
+
+
+*  vim垂直分屏:vim -On file1 file2 .....
+
+  其中:O(是大写字母O,不是数字零)n(表示你要分屏的文件个数)    
+
+           filen(文件名多个文件用空格分开)
+
+      想到左面那个文件用:ctrl + w + h
+
+      想到右面的文件用:ctrl + w + l
+
+ *   在垂直分屏好的文件中在打开别的文件:vsp filename
+
+
+
+*  撤销命令（命令模式下有效）
+
+    u ：小写的 u 键。
+
